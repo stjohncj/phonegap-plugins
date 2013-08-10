@@ -48,7 +48,7 @@ BarcodeScanner.prototype.scan = function(success, fail, options, thisCallback) {
 }
 
 //-------------------------------------------------------------------
-BarcodeScanner.prototype.encode = function(type, data, success, fail, options) {
+BarcodeScanner.prototype.encode = function(type, data, success, fail, options, thisCallback) {
     if (!fail) { fail = function() {}}
 
     if (typeof fail != "function")  {
@@ -57,7 +57,7 @@ BarcodeScanner.prototype.encode = function(type, data, success, fail, options) {
     }
 
     if (typeof success != "function") {
-        fail("success callback parameter must be a function")
+        fail.call(thisCallback, "success callback parameter must be a function")
         return
     }
 
