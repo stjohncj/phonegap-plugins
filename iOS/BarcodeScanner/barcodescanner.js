@@ -23,10 +23,10 @@ BarcodeScanner.Encode = {
 }
 
 //-------------------------------------------------------------------
-BarcodeScanner.prototype.scan = function(success, fail, options) {
+BarcodeScanner.prototype.scan = function(success, fail, options, thisCallback) {
     function successWrapper(result) {
         result.cancelled = (result.cancelled == 1)
-        success.call(null, result)
+        success.call(thisCallback, result)
     }
 
     if (!fail) { fail = function() {}}
@@ -37,7 +37,7 @@ BarcodeScanner.prototype.scan = function(success, fail, options) {
     }
 
     if (typeof success != "function") {
-        fail("success callback parameter must be a function")
+        fail.call(thisCallback, "success callback parameter must be a function")
         return
     }
   
